@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +21,9 @@ public class BookController {
     BookServiceImpl bookServiceImpl;
 
     @PostMapping
-    public ResponseEntity<Book> saveBook(@RequestBody Book book){
+    public ResponseEntity<Book> saveBook(@RequestPart("book") Book book, @RequestPart("file")MultipartFile file){
         try {
-            Book savedBook = bookServiceImpl.saveBook(book);
+            Book savedBook = bookServiceImpl.saveBook(book, file);
             return new ResponseEntity<>(savedBook, HttpStatus.OK);
         }
         catch (Exception e){
