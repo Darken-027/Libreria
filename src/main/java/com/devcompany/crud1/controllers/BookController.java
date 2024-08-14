@@ -13,7 +13,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/book")
+@CrossOrigin("http://localhost:4200/")
 public class BookController {
+
     @Autowired
     BookServiceImpl bookServiceImpl;
 
@@ -31,8 +33,8 @@ public class BookController {
     @PutMapping
     public ResponseEntity<Book> updateBook(@RequestBody Book book){
         try {
-            Book savedBook = bookServiceImpl.updateBook(book);
-            return new ResponseEntity<>(savedBook, HttpStatus.OK);
+            Book updateBook = bookServiceImpl.updateBook(book);
+            return new ResponseEntity<>(updateBook, HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -48,19 +50,22 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
         Optional<Book> book = bookServiceImpl.getBookById(id);
-        if(book.isEmpty())
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(book.get(), HttpStatus.OK);
+        if(book.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(book.get(), HttpStatus.OK);
+        }
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id){
         Optional<Book> book = bookServiceImpl.getBookById(id);
         if (book.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             bookServiceImpl.deleteBook(book.get().getId());
             return new ResponseEntity<>(HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
