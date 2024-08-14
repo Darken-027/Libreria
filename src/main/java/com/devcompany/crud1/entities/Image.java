@@ -20,8 +20,14 @@ public class Image {
     private String name;
 
     @NotBlank
-    private String immageUrl;
+    private String imageUrl;
 
     @NotBlank
     private String imageId;
+
+    public Image(String name, String imageUrl, String imageId){
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.imageId = imageId;
+    }
 }

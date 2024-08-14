@@ -13,8 +13,12 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    BookRepository bookRepository;
+
+    private final BookRepository bookRepository;
+
+    public BookServiceImpl(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     @Override
     public Book saveBook(Book book){
