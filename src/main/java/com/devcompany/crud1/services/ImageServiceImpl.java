@@ -28,4 +28,9 @@ public class ImageServiceImpl implements ImageService{
         return imageRepository.save(image);
     }
 
+    @Override
+    public void deleteImage(Image image) throws IOException{
+        cloudinaryService.delete(image.getImageId());
+        imageRepository.delete(image);
+    }
 }
