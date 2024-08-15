@@ -55,8 +55,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBookImage(MultipartFile file, Book ){
-
+    public Book updateBookImage(MultipartFile file, Book book) throws IOException{
+        if(book.getImage() != null){
+            imageService.deleteImage(book.getImage());
+        }
+        Image newImage = imageService.uploadImage(file);
+        book.setImage(newImage);
+        return bookRepository.save(book);
     }
 
 }
