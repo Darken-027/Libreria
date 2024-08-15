@@ -13,5 +13,5 @@ public interface BookService {
     List<Book> getBooks();
     Optional<Book> getBookById(Long id);
     void deleteBook(Long id);
-    Book updateBookImage(Long id, MultipartFile file, Book book) throws IOException;
+    Book updateBookImage(MultipartFile file, Book book) throws IOException;
 }
