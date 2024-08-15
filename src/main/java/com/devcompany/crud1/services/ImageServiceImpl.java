@@ -31,6 +31,6 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public void deleteImage(Image image) throws IOException{
         cloudinaryService.delete(image.getImageId());
-        imageRepository.delete(image);
+        imageRepository.deleteById(image.getId());
     }
 }
