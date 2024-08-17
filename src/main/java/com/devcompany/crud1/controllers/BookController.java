@@ -73,12 +73,12 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id){
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) throws IOException {
         Optional<Book> book = bookServiceImpl.getBookById(id);
         if (book.isEmpty()){
+            bookServiceImpl.deleteBook(book.get());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else {
-            bookServiceImpl.deleteBook(book.get().getId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
