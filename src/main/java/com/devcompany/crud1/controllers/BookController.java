@@ -64,12 +64,9 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
         Optional<Book> book = bookServiceImpl.getBookById(id);
-        if(book.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            return new ResponseEntity<>(book.get(), HttpStatus.OK);
-        }
-
+        Optional<Book> Book = bookServiceImpl.getBookById(id);
+        return book.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
@@ -77,9 +74,9 @@ public class BookController {
         Optional<Book> book = bookServiceImpl.getBookById(id);
         if (book.isEmpty()){
             bookServiceImpl.deleteBook(book.get());
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else {
             return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

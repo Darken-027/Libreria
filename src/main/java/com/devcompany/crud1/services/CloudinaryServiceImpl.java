@@ -20,25 +20,21 @@ public class CloudinaryServiceImpl implements CloudinaryService{
     public CloudinaryServiceImpl(){
         Map<String, String> valuesMap = new HashMap<>();
         valuesMap.put("cloud_name", "");
-        valuesMap.put("cloud_key", "");
-        valuesMap.put("cloud_secret", "");
+        valuesMap.put("api_key", "");
+        valuesMap.put("api_secret", "");
         cloudinary = new Cloudinary(valuesMap);
     }
 
     @Override
-    public Map<String, Object> upload(MultipartFile multipartFile) throws IOException{
+    public Map upload(MultipartFile multipartFile) throws IOException{
         File file = convert(multipartFile);
-        Map<String, Object> result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+        Map result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
         if (!Files.deleteIfExists(file.toPath())){
             throw new IOException("Failed to delete temporary file: " + file.getAbsolutePath());
         }
         return result;
     }
 
-    @Override
-    public Map upload(String id) throws IOException {
-        return Map.of();
-    }
 
     public Map delete(String id) throws IOException{
         return cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());

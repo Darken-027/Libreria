@@ -1,4 +1,4 @@
-package com.devcompany.crud1;
+package com.devcompany.crud1.services;
 
 import com.devcompany.crud1.entities.Book;
 import org.springframework.web.multipart.MultipartFile;

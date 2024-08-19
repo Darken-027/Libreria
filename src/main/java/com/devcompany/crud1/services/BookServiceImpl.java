@@ -1,14 +1,11 @@
 package com.devcompany.crud1.services;
 
-import com.devcompany.crud1.BookService;
 import com.devcompany.crud1.entities.Book;
 import com.devcompany.crud1.entities.Image;
 import com.devcompany.crud1.repositories.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
